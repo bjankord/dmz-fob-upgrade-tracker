@@ -12,7 +12,7 @@ defineProps<{ track: UpgradeTrack }>();
       <p class="panel__meta">{{ track.meta }}</p>
     </header>
     <ol class="panel__tiers">
-      <UpgradeTierRow v-for="tier in track.tiers" :key="tier.label" :tier="tier" />
+      <UpgradeTierRow v-for="tier in track.tiers" :key="tier.label" :track="track" :tier="tier" />
     </ol>
   </section>
 </template>
