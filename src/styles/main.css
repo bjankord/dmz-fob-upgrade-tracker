@@ -1,0 +1,79 @@
+@import "@fontsource/anton/400.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+:root {
+  --bg: #13140e;
+  --panel: #1a1b15;
+  --panel-raised: #20211a;
+  --line: #2f3027;
+  --line-strong: #44453a;
+  --text: #e9e4d2;
+  --text-dim: #8d8a7b;
+  --text-faint: #66645a;
+  --accent: #f0cf4a;
+  --accent-alt: #4ea3f0;
+
+  --ultra: #ec6a4c;
+  --legendary: #eba13d;
+  --epic: #b388ec;
+  --rare: #5aa8f2;
+  --uncommon: #74cc6d;
+
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --gutter: 16px;
+  --radius: 3px;
+
+  color-scheme: dark;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+[data-rarity="ultra"] {
+  --rarity: var(--ultra);
+}
+[data-rarity="legendary"] {
+  --rarity: var(--legendary);
+}
+[data-rarity="epic"] {
+  --rarity: var(--epic);
+}
+[data-rarity="rare"] {
+  --rarity: var(--rare);
+}
+[data-rarity="uncommon"] {
+  --rarity: var(--uncommon);
+}
