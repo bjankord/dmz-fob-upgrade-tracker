@@ -1,13 +1,24 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { UPGRADE_TRACKS } from "./data/upgrades.ts";
-import { allItemTotals, formatCash, totalCash } from "./data/totals.ts";
+import { allItemTotals, formatCash, totalCash, type TierDone } from "./data/totals.ts";
+import { tierKey, useCompletedTiers } from "./data/completedTiers.ts";
 import AppHeader from "./components/AppHeader.vue";
 import SectionHeading from "./components/SectionHeading.vue";
 import ItemTotalCard from "./components/ItemTotalCard.vue";
 import UpgradePanel from "./components/UpgradePanel.vue";
 
-const items = allItemTotals(UPGRADE_TRACKS);
-const cash = formatCash(totalCash(UPGRADE_TRACKS));
+const { isCompleted } = useCompletedTiers();
+const isDone: TierDone = (track, tier) => isCompleted(tierKey(track.id, tier.label));
+
+// Recomputed whenever a tier is marked completed or not completed.
+const items = computed(() => allItemTotals(UPGRADE_TRACKS, isDone));
+const cash = computed(() => totalCash(UPGRADE_TRACKS, isDone));
+const note = computed(() =>
+  cash.value > 0
+    ? `Items your remaining upgrades need · plus ${formatCash(cash.value)} cash`
+    : "Items your remaining upgrades need",
+);
 const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.column === col));
 </script>
 
@@ -16,14 +27,11 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
     <AppHeader />
 
     <section class="section" aria-labelledby="dont-sell">
-      <SectionHeading
-        id="dont-sell"
-        title="Don't sell these"
-        :note="`Every item FOB upgrades need · totals across every tier · plus ${cash} cash`"
-      />
-      <ul class="grid">
+      <SectionHeading id="dont-sell" title="Don't sell these" :note="note" />
+      <ul v-if="items.length" class="grid">
         <ItemTotalCard v-for="entry in items" :key="entry.item" :entry="entry" />
       </ul>
+      <p v-else class="empty">Every tier is completed. Nothing left to save.</p>
     </section>
 
     <div class="section tracks">
@@ -56,6 +64,13 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+
+.empty {
+  padding: 16px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--text-dim);
 }
 
 .tracks,

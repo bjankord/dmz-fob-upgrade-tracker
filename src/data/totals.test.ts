@@ -39,6 +39,31 @@ describe("allItemTotals", () => {
   });
 });
 
+describe("completed tiers", () => {
+  const done =
+    (...keys: string[]) =>
+    (track: { id: string }, tier: { label: string }) =>
+      keys.includes(`${track.id}:${tier.label}`);
+
+  it("hides an item once no remaining tier needs it", () => {
+    const all = allItemTotals(UPGRADE_TRACKS, done("bank:III"));
+    expect(all.find((e) => e.item === "Infantry Invasion Plans")).toBeUndefined();
+    expect(all).toHaveLength(43);
+  });
+
+  it("subtracts a completed tier's quantity and drops it from where it's used", () => {
+    const goldBar = allItemTotals(UPGRADE_TRACKS, done("bank:X")).find(
+      (e) => e.item === "Gold Bar",
+    );
+    expect(goldBar?.total).toBe(25);
+    expect(goldBar?.usedIn).toEqual(["Bank XII", "Stash weapons III"]);
+  });
+
+  it("only counts cash for tiers that are not done", () => {
+    expect(formatCash(totalCash(UPGRADE_TRACKS, done("bank:I", "bank:II")))).toBe("$4.77M");
+  });
+});
+
 describe("totalCash", () => {
   it("adds up every tier's cash cost", () => {
     expect(formatCash(totalCash(UPGRADE_TRACKS))).toBe("$4.84M");

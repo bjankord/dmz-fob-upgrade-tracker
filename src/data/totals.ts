@@ -9,12 +9,25 @@ export interface ItemTotal {
   usedIn: string[];
 }
 
-/** Every item of one kind, with its total across all tiers, most-needed first. */
-export function totalsByKind(tracks: UpgradeTrack[], kind: ItemKind): ItemTotal[] {
+/** Says whether a tier is already done, so its costs no longer count. */
+export type TierDone = (track: UpgradeTrack, tier: UpgradeTier) => boolean;
+
+const noneDone: TierDone = () => false;
+
+/**
+ * Every item of one kind still needed by tiers that are not done, with its
+ * total, most-needed first. Items no remaining tier needs are left out.
+ */
+export function totalsByKind(
+  tracks: UpgradeTrack[],
+  kind: ItemKind,
+  isDone: TierDone = noneDone,
+): ItemTotal[] {
   const totals = new Map<ItemName, ItemTotal>();
 
   for (const track of tracks) {
     for (const tier of track.tiers) {
+      if (isDone(track, tier)) continue;
       for (const { item, qty } of tier.costs) {
         const info = ITEMS[item];
         if (info.kind !== kind) continue;
@@ -29,11 +42,15 @@ export function totalsByKind(tracks: UpgradeTrack[], kind: ItemKind): ItemTotal[
   return [...totals.values()].sort((a, b) => b.total - a.total || a.item.localeCompare(b.item));
 }
 
-export function totalCash(tracks: UpgradeTrack[]): number {
-  return tracks.reduce(
-    (sum, track) => sum + track.tiers.reduce((tierSum, tier) => tierSum + (tier.cash ?? 0), 0),
-    0,
-  );
+/** Cash still needed by tiers that are not done. */
+export function totalCash(tracks: UpgradeTrack[], isDone: TierDone = noneDone): number {
+  let sum = 0;
+  for (const track of tracks) {
+    for (const tier of track.tiers) {
+      if (!isDone(track, tier)) sum += tier.cash ?? 0;
+    }
+  }
+  return sum;
 }
 
 /** A tier's item costs with valuables first, then ingredients, keeping the listed order otherwise. */
@@ -59,7 +76,10 @@ export function formatCash(dollars: number): string {
   return `$${dollars}`;
 }
 
-/** Every item any upgrade needs: valuables first, then ingredients, each most-needed first. */
-export function allItemTotals(tracks: UpgradeTrack[]): ItemTotal[] {
-  return [...totalsByKind(tracks, "valuable"), ...totalsByKind(tracks, "ingredient")];
+/** Every item still needed: valuables first, then ingredients, each most-needed first. */
+export function allItemTotals(tracks: UpgradeTrack[], isDone: TierDone = noneDone): ItemTotal[] {
+  return [
+    ...totalsByKind(tracks, "valuable", isDone),
+    ...totalsByKind(tracks, "ingredient", isDone),
+  ];
 }
