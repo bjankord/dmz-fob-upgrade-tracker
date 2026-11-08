@@ -5,7 +5,6 @@ import AppHeader from "./components/AppHeader.vue";
 import SectionHeading from "./components/SectionHeading.vue";
 import ItemTotalCard from "./components/ItemTotalCard.vue";
 import UpgradePanel from "./components/UpgradePanel.vue";
-import FreeUnlocks from "./components/FreeUnlocks.vue";
 
 const valuables = totalsByKind(UPGRADE_TRACKS, "valuable");
 const ingredients = totalsByKind(UPGRADE_TRACKS, "ingredient");
@@ -49,11 +48,6 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
           layout="inline"
         />
       </ul>
-    </section>
-
-    <section class="section" aria-labelledby="free-unlocks">
-      <SectionHeading id="free-unlocks" tone="plain" title="Free with DMZ level" />
-      <FreeUnlocks />
     </section>
 
     <footer class="footer">
