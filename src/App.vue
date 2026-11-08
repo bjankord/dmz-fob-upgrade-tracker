@@ -43,7 +43,7 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
     <footer class="footer">
       Costs are community-reported, updated 5 Nov 2026 (DMZ Radar, DMZ Index, Detonated, GameFusion,
       CODCentral, PlayerAuctions, AllThings.how). Check the in-game menu before spending. Rarities
-      from the CODMunity item database, with corrections checked in game.
+      from the CODMunity item database, with corrections checked in game. Original source: <a href="https://www.reddit.com/r/DMZ/comments/1xfbqvh/stop_selling_your_documents_i_made_a_full/">https://www.reddit.com/r/DMZ/comments/1xfbqvh/stop_selling_your_documents_i_made_a_full/</a>
     </footer>
   </main>
 </template>
