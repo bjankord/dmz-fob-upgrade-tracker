@@ -11,6 +11,6 @@ export default defineConfig({
     options: { typeAware: true, typeCheck: true },
   },
   staged: {
-    "*.{ts,tsx,js,jsx}": ["vp check --fix"],
+    "*.{ts,tsx,js,jsx,vue}": ["vp check --fix"],
   },
 });
