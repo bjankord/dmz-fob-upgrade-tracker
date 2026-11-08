@@ -1,4 +1,4 @@
-import { ITEMS, type ItemKind, type ItemName, type Rarity } from "./items.ts";
+import { ITEMS, RARITIES, type ItemKind, type ItemName, type Rarity } from "./items.ts";
 import type { ItemCost, UpgradeTier, UpgradeTrack } from "./upgrades.ts";
 
 export interface ItemTotal {
@@ -76,10 +76,15 @@ export function formatCash(dollars: number): string {
   return `$${dollars}`;
 }
 
-/** Every item still needed: valuables first, then ingredients, each most-needed first. */
+/**
+ * Every item still needed, rarest first (Ultra to Uncommon). Within a rarity,
+ * valuables come before ingredients, then most-needed first.
+ */
 export function allItemTotals(tracks: UpgradeTrack[], isDone: TierDone = noneDone): ItemTotal[] {
+  const rank = (rarity: Rarity) => RARITIES.indexOf(rarity);
+  // Array sort is stable, so the valuables-then-ingredients order holds within each rarity.
   return [
     ...totalsByKind(tracks, "valuable", isDone),
     ...totalsByKind(tracks, "ingredient", isDone),
-  ];
+  ].sort((a, b) => rank(a.rarity) - rank(b.rarity));
 }

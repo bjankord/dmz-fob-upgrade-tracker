@@ -30,12 +30,26 @@ describe("totalsByKind", () => {
 });
 
 describe("allItemTotals", () => {
-  it("lists all 44 items, valuables before ingredients", () => {
+  it("lists all 44 items, rarest first", () => {
     const all = allItemTotals(UPGRADE_TRACKS);
     expect(all).toHaveLength(44);
-    expect(all[0]?.item).toBe("Gold Bar");
-    expect(all[17]?.item).toBe("Shopping DRC Locker");
-    expect(all[18]?.item).toBe("Alloyed Plating");
+    const rarities = [...new Set(all.map((e) => e.rarity))];
+    expect(rarities).toEqual(["ultra", "legendary", "epic", "rare", "uncommon"]);
+  });
+
+  it("puts valuables before ingredients within a rarity, then most-needed first", () => {
+    const epic = allItemTotals(UPGRADE_TRACKS).filter((e) => e.rarity === "epic");
+    expect(epic.map((e) => `${e.total} ${e.item}`)).toEqual([
+      "15 Foreign Intelligence Targets",
+      "15 W.M.D Manifest",
+      "10 Cipher Code Ledger",
+      "40 Alloyed Plating",
+      "30 Ballistic Fabric",
+      "30 Comms Module",
+      "30 Nylon Laminate",
+      "30 Power Regulators",
+      "30 Volatile Explosives",
+    ]);
   });
 });
 
