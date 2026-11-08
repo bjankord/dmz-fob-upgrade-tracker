@@ -8,7 +8,7 @@ import { RARITIES, RARITY_LABELS } from "../data/items.ts";
       <span>MW4 DMZ · 3D Printer · Upgrades</span>
       <span>Community-reported costs</span>
     </div>
-    <h1 class="header__title">FOB Upgrade Costs</h1>
+    <h1 class="header__title">DMZ FOB Upgrade Tracker</h1>
     <p class="header__intro">
       Every known tier, what it needs and how many. Text and outline colors show each item's rarity;
       in every tier, valuables come before ingredients.
