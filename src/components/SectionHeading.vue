@@ -4,7 +4,7 @@ withDefaults(
     id: string;
     title: string;
     note?: string;
-    tone?: "accent" | "alt" | "plain";
+    tone?: "accent" | "plain";
   }>(),
   { tone: "accent" },
 );
@@ -37,9 +37,6 @@ withDefaults(
 
 .heading__title--accent {
   color: var(--accent);
-}
-.heading__title--alt {
-  color: var(--accent-alt);
 }
 .heading__title--plain {
   color: var(--text);

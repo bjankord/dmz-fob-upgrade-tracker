@@ -1,25 +1,14 @@
 <script setup lang="ts">
 import type { ItemTotal } from "../data/totals.ts";
 
-withDefaults(
-  defineProps<{
-    entry: ItemTotal;
-    /** "stacked" puts the count above the name; "inline" puts it beside. */
-    layout?: "stacked" | "inline";
-  }>(),
-  { layout: "stacked" },
-);
+defineProps<{ entry: ItemTotal }>();
 </script>
 
 <template>
-  <li class="card" :class="`card--${layout}`" :data-rarity="entry.rarity">
-    <p class="card__count">
-      {{ entry.total }}<span v-if="layout === 'stacked'" class="card__times">×</span>
-    </p>
-    <div class="card__body">
-      <h3 class="card__name">{{ entry.item }}</h3>
-      <p class="card__used">{{ entry.usedIn.join(" · ") }}</p>
-    </div>
+  <li class="card" :data-rarity="entry.rarity">
+    <p class="card__count">{{ entry.total }}<span class="card__times">×</span></p>
+    <h3 class="card__name">{{ entry.item }}</h3>
+    <p class="card__used">{{ entry.usedIn.join(" · ") }}</p>
   </li>
 </template>
 
@@ -31,27 +20,12 @@ withDefaults(
   background: color-mix(in srgb, var(--rarity) 6%, var(--panel));
 }
 
-.card--inline {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
 .card__count {
-  font-family: var(--font-display);
-  line-height: 1;
-}
-
-.card--stacked .card__count {
   margin-bottom: 8px;
+  font-family: var(--font-display);
   font-size: 34px;
+  line-height: 1;
   color: var(--accent);
-}
-
-.card--inline .card__count {
-  flex: 0 0 2.2ch;
-  font-size: 26px;
-  color: var(--rarity);
 }
 
 .card__times {

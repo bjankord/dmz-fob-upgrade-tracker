@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { UPGRADE_TRACKS } from "./data/upgrades.ts";
-import { formatCash, totalCash, totalsByKind } from "./data/totals.ts";
+import { allItemTotals, formatCash, totalCash } from "./data/totals.ts";
 import AppHeader from "./components/AppHeader.vue";
 import SectionHeading from "./components/SectionHeading.vue";
 import ItemTotalCard from "./components/ItemTotalCard.vue";
 import UpgradePanel from "./components/UpgradePanel.vue";
 
-const valuables = totalsByKind(UPGRADE_TRACKS, "valuable");
-const ingredients = totalsByKind(UPGRADE_TRACKS, "ingredient");
+const items = allItemTotals(UPGRADE_TRACKS);
 const cash = formatCash(totalCash(UPGRADE_TRACKS));
 const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.column === col));
 </script>
@@ -20,10 +19,10 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
       <SectionHeading
         id="dont-sell"
         title="Don't sell these"
-        note="Valuables, keys and gear · totals across every tier"
+        :note="`Every item FOB upgrades need · totals across every tier · plus ${cash} cash`"
       />
-      <ul class="grid grid--valuables">
-        <ItemTotalCard v-for="entry in valuables" :key="entry.item" :entry="entry" />
+      <ul class="grid">
+        <ItemTotalCard v-for="entry in items" :key="entry.item" :entry="entry" />
       </ul>
     </section>
 
@@ -32,23 +31,6 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
         <UpgradePanel v-for="track in tracks" :key="track.id" :track="track" />
       </div>
     </div>
-
-    <section class="section" aria-labelledby="shopping-list">
-      <SectionHeading
-        id="shopping-list"
-        tone="alt"
-        title="Ingredient shopping list"
-        :note="`Totals across every tier, and where each is used · plus ${cash}+ cash`"
-      />
-      <ul class="grid grid--ingredients">
-        <ItemTotalCard
-          v-for="entry in ingredients"
-          :key="entry.item"
-          :entry="entry"
-          layout="inline"
-        />
-      </ul>
-    </section>
 
     <footer class="footer">
       Costs are community-reported, updated 5 Nov 2026 (DMZ Radar, DMZ Index, Detonated, GameFusion,
@@ -72,15 +54,8 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
 
 .grid {
   display: grid;
-  gap: 8px;
-}
-
-.grid--valuables {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid--ingredients {
-  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
 }
 
 .tracks,
@@ -91,11 +66,8 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
 }
 
 @media (min-width: 560px) {
-  .grid--valuables {
+  .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .grid--ingredients {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -103,11 +75,8 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
   .page {
     padding-top: 32px;
   }
-  .grid--valuables {
+  .grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-  .grid--ingredients {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .tracks {
     grid-template-columns: repeat(2, minmax(0, 1fr));

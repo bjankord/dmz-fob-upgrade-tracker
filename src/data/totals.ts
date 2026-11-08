@@ -58,3 +58,8 @@ export function formatCash(dollars: number): string {
   }
   return `$${dollars}`;
 }
+
+/** Every item any upgrade needs: valuables first, then ingredients, each most-needed first. */
+export function allItemTotals(tracks: UpgradeTrack[]): ItemTotal[] {
+  return [...totalsByKind(tracks, "valuable"), ...totalsByKind(tracks, "ingredient")];
+}

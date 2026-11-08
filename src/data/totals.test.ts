@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { UPGRADE_TRACKS } from "./upgrades.ts";
-import { formatCash, orderedCosts, totalCash, totalsByKind } from "./totals.ts";
+import { allItemTotals, formatCash, orderedCosts, totalCash, totalsByKind } from "./totals.ts";
 
 describe("totalsByKind", () => {
   it("sums valuables across every tier, most-needed first", () => {
@@ -26,6 +26,16 @@ describe("totalsByKind", () => {
     expect(byName["Power Regulators"]).toBe(30);
     expect(byName["Nitro Compounds"]).toBe(30);
     expect(byName["Prototype RF Module"]).toBe(12);
+  });
+});
+
+describe("allItemTotals", () => {
+  it("lists all 44 items, valuables before ingredients", () => {
+    const all = allItemTotals(UPGRADE_TRACKS);
+    expect(all).toHaveLength(44);
+    expect(all[0]?.item).toBe("Gold Bar");
+    expect(all[17]?.item).toBe("Shopping DRC Locker");
+    expect(all[18]?.item).toBe("Alloyed Plating");
   });
 });
 
