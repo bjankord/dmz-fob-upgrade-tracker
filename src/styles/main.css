@@ -28,7 +28,7 @@
   color-scheme: dark;
   background: var(--bg);
   color: var(--text);
-  font: 13px/1.5 var(--font-mono);
+  font: 1.25rem/1.5 var(--font-mono);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;

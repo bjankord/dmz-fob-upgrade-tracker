@@ -24,7 +24,7 @@ const rarity = computed(() => (props.kind === "item" ? ITEMS[props.item].rarity 
   padding: 3px 7px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  font-size: 11px;
+  font-size: 0.6875rem;
   line-height: 1.3;
   white-space: nowrap;
 }

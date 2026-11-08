@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
   background: transparent;
   color: var(--text);
   font: inherit;
-  font-size: 12px;
+  font-size: 0.75rem;
   text-align: left;
   cursor: pointer;
 }
@@ -164,7 +164,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--line-strong);
   border-radius: 2px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: 0.6875rem;
   line-height: 1;
 }
 </style>

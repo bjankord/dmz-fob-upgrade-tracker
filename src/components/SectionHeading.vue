@@ -29,7 +29,7 @@ withDefaults(
 
 .heading__title {
   font-family: var(--font-display);
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 400;
   line-height: 1.05;
   text-transform: uppercase;
@@ -43,7 +43,7 @@ withDefaults(
 }
 
 .heading__note {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-dim);
 }
 </style>

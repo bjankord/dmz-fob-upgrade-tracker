@@ -32,14 +32,14 @@ import { FREE_UNLOCKS } from "../data/freeUnlocks.ts";
 }
 
 .unlock__reward {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.35;
 }
 
 .unlock__levels {
   margin-top: 4px;
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--text-dim);
 }
 </style>

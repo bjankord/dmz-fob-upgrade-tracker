@@ -34,7 +34,7 @@ import { RARITIES, RARITY_LABELS } from "../data/items.ts";
   justify-content: space-between;
   gap: 4px 16px;
   margin-bottom: 10px;
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-dim);
@@ -42,7 +42,7 @@ import { RARITIES, RARITY_LABELS } from "../data/items.ts";
 
 .header__title {
   font-family: var(--font-display);
-  font-size: clamp(44px, 13vw, 76px);
+  font-size: clamp(2.75rem, 13vw, 4.75rem);
   font-weight: 400;
   line-height: 0.95;
   text-transform: uppercase;
@@ -52,7 +52,7 @@ import { RARITIES, RARITY_LABELS } from "../data/items.ts";
 .header__intro {
   max-width: 60ch;
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #bdb8a6;
 }
 
@@ -62,7 +62,7 @@ import { RARITIES, RARITY_LABELS } from "../data/items.ts";
   align-items: center;
   gap: 8px 14px;
   margin-top: 14px;
-  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 .legend__cash {

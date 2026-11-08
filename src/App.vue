@@ -106,7 +106,7 @@ const columns = [1, 2].map((col) => UPGRADE_TRACKS.filter((track) => track.colum
   margin-top: 32px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 0.625rem;
   line-height: 1.6;
   color: var(--text-faint);
 }

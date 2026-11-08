@@ -35,7 +35,7 @@ defineProps<{ track: UpgradeTrack }>();
 
 .panel__title {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -44,7 +44,7 @@ defineProps<{ track: UpgradeTrack }>();
 
 .panel__meta {
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-dim);

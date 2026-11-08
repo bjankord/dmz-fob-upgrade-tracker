@@ -23,7 +23,7 @@ defineProps<{ entry: ItemTotal }>();
 .card__count {
   margin-bottom: 8px;
   font-family: var(--font-display);
-  font-size: 34px;
+  font-size: 2.125rem;
   line-height: 1;
   color: var(--accent);
 }
@@ -33,7 +33,7 @@ defineProps<{ entry: ItemTotal }>();
 }
 
 .card__name {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.3;
   color: var(--rarity);
@@ -41,7 +41,7 @@ defineProps<{ entry: ItemTotal }>();
 
 .card__used {
   margin-top: 4px;
-  font-size: 10px;
+  font-size: 0.625rem;
   line-height: 1.4;
   color: var(--text-dim);
 }
